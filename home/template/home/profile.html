@@ -1,0 +1,65 @@
+ {% extends 'base.html' %}
+ {% block title %}Profile Page{% endblock %}
+ {% block content %}
+ <br><br><br>
+ <section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Upload your receipt</h2>
+            {% if request.user.is_confirm %}
+          <p>Great!</p>
+            {% else %}
+            <p>You will be notified if approved   </p>
+            {% endif %}
+        </div>
+     {% for msg in messages %}
+        <p>{{ msg }} </p>
+       {% endfor %}
+                  {% if form.errors %}
+<p>Invalid login details, please check your email and password</p>
+{% endif %}
+          {% if request.user.is_confirm %}
+       <div class="row" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-lg-6 text-center">
+            <div  class="php-email-form">
+              <div class="row">
+                <div class="col form-group">
+                    <p>Your receipt has been <a>approved!<a/> </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+          {% elif request.user.reciept %}
+<!--          <img src="{{request.user.reciept.url}}">-->
+            <div class="row" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-lg-6 text-center">
+            <div  class="php-email-form">
+              <div class="row">
+                <div class="col form-group">
+                    <p>Successfully submitted, waiting for approval. </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        {% else %}
+          <div class="row" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-lg-6 text-center">
+
+            <form action="{% url 'update' request.user.id %}" method="post" role="form" class="php-email-form" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col form-group">
+                    {{ form.reciept }}
+                </div>
+              </div>
+              <div class="text-center"><button type="submit">Submit</button></div>
+            </form>
+          </div>
+        </div>
+          {% endif %}
+      </div>
+    </section><!-- End Contact Section -->
+ {% endblock %}

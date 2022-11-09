@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %} Registration {% endblock %}
+{% load static %}
+{% block content %}
+<br><br><br>
+   <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Registration Page</h2>
+          <p>Enter your details to register</p>
+        </div>
+
+       <div class="row" data-aos="fade-up" data-aos-delay="100">
+
+          <div class="col-lg-6 text-center">
+              {% if form.errors %}
+            <p>{{ form.errors }} </p>
+         {% endif %}
+            <form action="." method="post" role="form" class="php-email-form">
+                {% csrf_token %}
+              <div class="row">
+                <div class="col form-group">
+                    {{ form.email }}
+<!--                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>-->
+                </div>
+              </div>
+              <div class="row">
+
+                <div class="col form-group">
+                    {{ form.name }}
+<!--                  <input type="text" class="form-control" name="name" id="name" placeholder="Name" required>-->
+                </div>
+              </div>
+              <div class="form-group">
+                  {{ form.password1 }}
+<!--                <input type="password" class="form-control" name="subject" id="subject" placeholder="Password" required>-->
+              </div>
+              <div class="form-group">
+                  {{ form.password2 }}
+<!--                <input type="password" class="form-control" name="password2" id="password2" placeholder="Confirm password" required>-->
+              </div>
+              <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+              <div class="text-center"><button type="submit">Register</button></div>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+
+{% endblock %}
